@@ -5,7 +5,7 @@ import { fetchItems } from "./services/trade-item";
 
 const main = async () => {
   const auth = new google.auth.GoogleAuth({
-    keyFile: "/google-cred/xdraco-ecbc3893b1ee.json",
+    keyFile: "/google-cred/xdraco-310a7c9c1a42.json",
     scopes: ["https://www.googleapis.com/auth/spreadsheets"],
   });
   const authClient = await auth.getClient();
