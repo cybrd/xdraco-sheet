@@ -23,7 +23,7 @@ export const fetchItems = async (rows: string[][]) => {
           itemID: res.data.item.itemID,
           itemUID: res.data.item.itemUID,
           optionName: res.data.item.addOptions[0].optionName,
-          optionValue: Number(res.data.item.addOptions[0].optionValue),
+          optionValue: percentToNumber(res.data.item.addOptions[0].optionValue),
           itemLink: "https://www.xdraco.com/exd/trade/" + row[0],
         }))
         .catch((err) => {
@@ -32,4 +32,13 @@ export const fetchItems = async (rows: string[][]) => {
         });
     })
   );
+};
+
+const percentToNumber = (value: string) => {
+  const valueLength = value.length;
+  if (value.substring(valueLength - 1) === "%") {
+    return Number(value.substring(0, valueLength - 1));
+  } else {
+    return Number(value);
+  }
 };
