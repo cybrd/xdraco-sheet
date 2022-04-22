@@ -12,20 +12,19 @@ const main = async () => {
   const sheets = google.sheets({ version: "v4", auth: authClient });
 
   await clearSheet(sheets);
-  process.exit();
 
-  // let data: any[] = [];
-  // let newData: any[] = [];
-  // let page = 1;
-  // do {
-  //   console.log("Fetching page " + page);
-  //   newData = await fetchDashboard(page);
-  //   data = [...data, ...newData];
-  //   page++;
-  // } while (newData.length);
+  let data: any[] = [];
+  let newData: any[] = [];
+  let page = 1;
+  do {
+    console.log("Fetching page " + page);
+    newData = await fetchDashboard(page);
+    data = [...data, ...newData];
+    page++;
+  } while (newData.length);
 
-  // if (data.length) {
-  //   updateSheetDashboard(sheets, data);
-  // }
+  if (data.length) {
+    updateSheetDashboard(sheets, data);
+  }
 };
 main();
