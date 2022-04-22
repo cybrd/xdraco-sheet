@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "npx ts-node src",
-    "row": "npx ts-node src/row.ts",
+    "character1": "npx ts-node src/character/dashboard.ts",
+    "character2": "npx ts-node src/character/row.ts",
+    "mystic1": "npx ts-node src/mystic/dashboard.ts",
+    "mystic2": "npx ts-node src/mystic/row.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

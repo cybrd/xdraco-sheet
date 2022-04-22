@@ -7,8 +7,8 @@ const params = {
   languageCode: "en",
 };
 
-export const fetchItems = async (rows: string[][]) => {
-  return await Promise.all(
+export const fetchItems = (rows: string[][]) => {
+  return Promise.all(
     rows.map((row, i) => {
       console.log("Fetching item: " + row[0]);
 
