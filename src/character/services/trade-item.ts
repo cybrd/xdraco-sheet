@@ -5,7 +5,7 @@ const uri = "https://webapi.mir4global.com/nft/character/";
 export const fetchSummary = (rows: string[][]) => {
   return Promise.all(
     rows.map((row) => {
-      console.log("Fetching Summary: ", row[0]);
+      console.log("Fetching Summary:", row[0]);
 
       const query = new URLSearchParams({
         seq: row[0],
@@ -21,7 +21,7 @@ export const fetchSummary = (rows: string[][]) => {
           equipItem: res.data.equipItem,
         }))
         .catch(() => {
-          console.error("Error Fetch Summary #: ", row[0]);
+          console.error("Error Fetch Summary #:", row[0]);
           return {
             seq: row[0],
             equipItem: [],
@@ -35,10 +35,10 @@ export const fetchOther = (rows: any[]) => {
   return Promise.all(
     rows.map((row, i) => {
       if (!Object.keys(row.equipItem).length) {
-        console.log("Skip Fetching Other: ", row.seq, row.transportID);
+        console.log("Skip Fetching Other:", row.seq, row.transportID);
         return [];
       } else {
-        console.log("Fetching Other: ", row.seq, row.transportID);
+        console.log("Fetching Other:", row.seq, row.transportID);
       }
 
       const types = ["skills", "training", "spirit", "magicstone", "codex"];
@@ -74,12 +74,12 @@ const fetchSkills = (row: any) => {
     languageCode: "en",
   });
 
-  console.log("Fetching Skills: ", row.seq, row.transportID);
+  console.log("Fetching Skills:", row.seq, row.transportID);
   return fetch(uri + "skills?" + query)
     .then((res) => res.json())
     .then((res) => ({ skills: res.data }))
     .catch((err) => {
-      console.error("Error Fetch Skills #: ", row.seq);
+      console.error("Error Fetch Skills #:", row.seq);
       throw Error(err);
     });
 };
@@ -90,12 +90,12 @@ const fetchTraining = (row: any) => {
     languageCode: "en",
   });
 
-  console.log("Fetching Training: ", row.seq, row.transportID);
+  console.log("Fetching Training:", row.seq, row.transportID);
   return fetch(uri + "training?" + query)
     .then((res) => res.json())
     .then((res) => ({ training: res.data }))
     .catch((err) => {
-      console.error("Error Fetch Training #: ", row.seq);
+      console.error("Error Fetch Training #:", row.seq);
       throw Error(err);
     });
 };
@@ -106,12 +106,12 @@ const fetchSpirit = (row: any) => {
     languageCode: "en",
   });
 
-  console.log("Fetching Spirit: ", row.seq, row.transportID);
+  console.log("Fetching Spirit:", row.seq, row.transportID);
   return fetch(uri + "spirit?" + query)
     .then((res) => res.json())
     .then((res) => ({ spirit: res.data?.inven }))
     .catch((err) => {
-      console.error("Error Fetch Spirit #: ", row.seq);
+      console.error("Error Fetch Spirit #:", row.seq);
       throw Error(err);
     });
 };
@@ -122,7 +122,7 @@ const fetchMagicStone = (row: any) => {
     languageCode: "en",
   });
 
-  console.log("Fetching Magic Stone: ", row.seq, row.transportID);
+  console.log("Fetching Magic Stone:", row.seq, row.transportID);
   return fetch(uri + "inven?" + query)
     .then((res) => res.json())
     .then((res) => ({
@@ -132,7 +132,7 @@ const fetchMagicStone = (row: any) => {
       ),
     }))
     .catch((err) => {
-      console.error("Error Fetch MagicStone #: ", row.seq);
+      console.error("Error Fetch MagicStone #:", row.seq);
       throw Error(err);
     });
 };
@@ -143,12 +143,12 @@ const fetchCodex = (row: any) => {
     languageCode: "en",
   });
 
-  console.log("Fetching Codex: ", row.seq, row.transportID);
+  console.log("Fetching Codex:", row.seq, row.transportID);
   return fetch(uri + "codex?" + query)
     .then((res) => res.json())
     .then((res) => ({ codex: res.data }))
     .catch((err) => {
-      console.error("Error Fetch Codex #: ", row.seq);
+      console.error("Error Fetch Codex #:", row.seq);
       throw Error(err);
     });
 };

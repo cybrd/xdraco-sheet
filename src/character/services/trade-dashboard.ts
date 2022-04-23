@@ -20,7 +20,7 @@ export const fetchDashboard = async (page: number) => {
       link: "https://www.xdraco.com/nft/trade/" + list.seq,
       seq: list.seq,
       characterName: list.characterName,
-      class: list.class,
+      class: className(list.class),
       lv: list.lv,
       price: list.price,
       powerScore: list.powerScore,
@@ -29,4 +29,19 @@ export const fetchDashboard = async (page: number) => {
   });
 
   return data;
+};
+
+const className = (value: number) => {
+  switch (value) {
+    case 1:
+      return "Warrior";
+    case 2:
+      return "Sorcerer";
+    case 3:
+      return "Taoist";
+    case 4:
+      return "Arbalist";
+    case 5:
+      return "Lancer";
+  }
 };
