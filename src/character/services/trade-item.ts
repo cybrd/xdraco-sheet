@@ -19,6 +19,7 @@ export const fetchSummary = (rows: string[][]) => {
           transportID: res.data.character.transportID,
           class: res.data.character.class,
           equipItem: res.data.equipItem,
+          sealedTS: res.data.sealedTS,
         }))
         .catch(() => {
           console.error("Error Fetch Summary #:", row[0]);

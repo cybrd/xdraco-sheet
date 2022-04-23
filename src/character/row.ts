@@ -31,12 +31,61 @@ const main = async () => {
     });
 
     combinedData.forEach((data) => {
-      let value: any[] = [];
+      let value: any[] = [data.sealedTS];
 
       if (data.skills) {
         value = [
           ...value,
           data.skills.filter((x: any) => Number(x.skillLevel) >= 8).length,
+        ];
+      }
+
+      if (data.spirit) {
+        value = [
+          ...value,
+          data.spirit.filter((x: any) => x.grade === 5).length,
+          data.spirit.filter((x: any) => x.grade === 4).length,
+        ];
+      }
+
+      if (data.magicStone) {
+        value = [
+          ...value,
+          data.magicStone.filter((x: any) => Number(x.grade) === 5).length,
+          data.magicStone.filter((x: any) => Number(x.grade) === 4).length,
+          data.magicStone.filter(
+            (x: any) => x.itemName.indexOf("Destruction") !== -1
+          ).length,
+        ];
+      }
+
+      if (data.codex) {
+        value = [
+          ...value,
+          Number(data.codex[1].completed),
+          Number(data.codex[2].completed),
+          Number(data.codex[3].completed),
+        ];
+      }
+
+      if (data.equipItem) {
+        let equipScore = 0;
+
+        Object.values(data.equipItem).forEach((equip: any) => {
+          if (Number(equip.grade) === 5) {
+            equipScore += 100;
+          } else if (Number(equip.grade) === 4) {
+            equipScore += Number(equip.tier);
+            equipScore += Math.max(0, Number(equip.enhance) - 5);
+          }
+        });
+
+        value = [...value, equipScore];
+      }
+
+      if (data.skills) {
+        value = [
+          ...value,
           Number(data.skills[0].skillLevel),
           Number(data.skills[1].skillLevel),
           Number(data.skills[2].skillLevel),
@@ -70,8 +119,6 @@ const main = async () => {
       if (data.spirit) {
         value = [
           ...value,
-          data.spirit.filter((x: any) => x.grade === 5).length,
-          data.spirit.filter((x: any) => x.grade === 4).length,
           data.spirit.filter((x: any) => x.petName === "Golden Bird Suparna")
             .length,
           data.spirit.filter((x: any) => x.petName === "Absolute Beauty Whaley")
@@ -100,26 +147,6 @@ const main = async () => {
             .length,
           data.spirit.filter((x: any) => x.petName === "Radiance Dragon Mir")
             .length,
-        ];
-      }
-
-      if (data.magicStone) {
-        value = [
-          ...value,
-          data.magicStone.filter((x: any) => Number(x.grade) === 5).length,
-          data.magicStone.filter((x: any) => Number(x.grade) === 4).length,
-          data.magicStone.filter(
-            (x: any) => x.itemName.indexOf("Destruction") !== -1
-          ).length,
-        ];
-      }
-
-      if (data.codex) {
-        value = [
-          ...value,
-          Number(data.codex[1].completed),
-          Number(data.codex[2].completed),
-          Number(data.codex[3].completed),
         ];
       }
 

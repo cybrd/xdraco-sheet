@@ -4,8 +4,10 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "character": "npm run character1 && npm run character2",
     "character1": "npx ts-node src/character/dashboard.ts",
     "character2": "npx ts-node src/character/row.ts",
+    "mystic": "npm run mystic1 && npm run mystic2",
     "mystic1": "npx ts-node src/mystic/dashboard.ts",
     "mystic2": "npx ts-node src/mystic/row.ts",
     "test": "echo \"Error: no test specified\" && exit 1"
