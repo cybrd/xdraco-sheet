@@ -12,9 +12,7 @@ export const fetchSummary = (rows: string[][]) => {
         languageCode: "en",
       });
 
-      return fetch(uri + "summary?" + query, {
-        method: "GET",
-      })
+      return fetch(uri + "summary?" + query)
         .then((res) => res.json())
         .then((res) => ({
           seq: row[0],
@@ -43,13 +41,7 @@ export const fetchOther = (rows: any[]) => {
         console.log("Fetching Other: ", row.seq, row.transportID);
       }
 
-      const types = [
-        "skills",
-        "training",
-        // "spirit",
-        // "codex",
-        // "magicstone",
-      ];
+      const types = ["skills", "training", "spirit", "magicstone", "codex"];
 
       return Promise.all(
         types.map((type) => {
@@ -62,6 +54,12 @@ export const fetchOther = (rows: any[]) => {
 
             case "spirit":
               return fetchSpirit(row);
+
+            case "magicstone":
+              return fetchMagicStone(row);
+
+            case "codex":
+              return fetchCodex(row);
           }
         })
       );
@@ -77,9 +75,7 @@ const fetchSkills = (row: any) => {
   });
 
   console.log("Fetching Skills: ", row.seq, row.transportID);
-  return fetch(uri + "skills?" + query, {
-    method: "GET",
-  })
+  return fetch(uri + "skills?" + query)
     .then((res) => res.json())
     .then((res) => ({ skills: res.data }))
     .catch((err) => {
@@ -95,9 +91,7 @@ const fetchTraining = (row: any) => {
   });
 
   console.log("Fetching Training: ", row.seq, row.transportID);
-  return fetch(uri + "training?" + query, {
-    method: "GET",
-  })
+  return fetch(uri + "training?" + query)
     .then((res) => res.json())
     .then((res) => ({ training: res.data }))
     .catch((err) => {
@@ -113,13 +107,48 @@ const fetchSpirit = (row: any) => {
   });
 
   console.log("Fetching Spirit: ", row.seq, row.transportID);
-  return fetch(uri + "spirit?" + query, {
-    method: "GET",
-  })
+  return fetch(uri + "spirit?" + query)
     .then((res) => res.json())
-    .then((res) => ({ spirit: res.data }))
+    .then((res) => ({ spirit: res.data?.inven }))
     .catch((err) => {
       console.error("Error Fetch Spirit #: ", row.seq);
+      throw Error(err);
+    });
+};
+
+const fetchMagicStone = (row: any) => {
+  const query = new URLSearchParams({
+    transportID: row.transportID,
+    languageCode: "en",
+  });
+
+  console.log("Fetching Magic Stone: ", row.seq, row.transportID);
+  return fetch(uri + "inven?" + query)
+    .then((res) => res.json())
+    .then((res) => ({
+      magicStone: res.data.filter(
+        (x: any) =>
+          Number(x.grade) >= 4 && x.itemName.indexOf("Magic Stone of") !== -1
+      ),
+    }))
+    .catch((err) => {
+      console.error("Error Fetch MagicStone #: ", row.seq);
+      throw Error(err);
+    });
+};
+
+const fetchCodex = (row: any) => {
+  const query = new URLSearchParams({
+    transportID: row.transportID,
+    languageCode: "en",
+  });
+
+  console.log("Fetching Codex: ", row.seq, row.transportID);
+  return fetch(uri + "codex?" + query)
+    .then((res) => res.json())
+    .then((res) => ({ codex: res.data }))
+    .catch((err) => {
+      console.error("Error Fetch Codex #: ", row.seq);
       throw Error(err);
     });
 };

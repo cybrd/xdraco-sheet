@@ -12,9 +12,7 @@ const params = {
 export const fetchDashboard = async (page: number) => {
   params.page = String(page);
   const query = new URLSearchParams(params);
-  const results = await fetch(uri + "?" + query, {
-    method: "GET",
-  }).then((res) => res.json());
+  const results = await fetch(uri + "?" + query).then((res) => res.json());
 
   const data: any[] = [];
   results.data.lists.forEach((list: any) => {

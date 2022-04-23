@@ -11,9 +11,14 @@ const main = async () => {
   const authClient = await auth.getClient();
   const sheets = google.sheets({ version: "v4", auth: authClient });
 
-  const rows = await listRows(sheets);
+  let rows = await listRows(sheets);
+  let sheetData: any = [];
 
-  const rowsData = await fetchItems(rows);
-  updateSheetRows(sheets, rowsData);
+  while (rows.length) {
+    const rowsData = await fetchItems(rows.splice(0, 50));
+
+    sheetData = [...sheetData, ...rowsData];
+  }
+  updateSheetRows(sheets, sheetData);
 };
 main();

@@ -80,7 +80,7 @@ export const clearSheet = (sheets: sheets_v4.Sheets) => {
   return sheets.spreadsheets.values
     .clear({
       spreadsheetId,
-      range: "Sheet1!A2:AA",
+      range: "Sheet1!A2:AZ",
     })
     .then(() => {
       console.log(`Sheet cleared`);

@@ -15,9 +15,7 @@ export const fetchItems = (rows: string[][]) => {
       params.tradeUID = row[0];
       const query = new URLSearchParams(params);
 
-      return fetch(uri + "?" + query, {
-        method: "GET",
-      })
+      return fetch(uri + "?" + query)
         .then((res) => res.json())
         .then((res) => ({
           itemID: res.data.item.itemID,
