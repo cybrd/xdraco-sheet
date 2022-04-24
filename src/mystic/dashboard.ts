@@ -21,7 +21,7 @@ const main = async () => {
     newData = await fetchDashboard(page);
     data = [...data, ...newData];
     page++;
-  } while (newData.length && page <= 5);
+  } while (newData.length && page <= 500);
 
   if (data.length) {
     updateSheetDashboard(sheets, data);
